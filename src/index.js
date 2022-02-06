@@ -1,16 +1,18 @@
 import { config } from "dotenv";
 import { expand } from "dotenv-expand";
+import * as colorette from "colorette";
 
 expand(config({ path: ".env" }));
 expand(config({ path: ".env.local" }));
 
-try {
-  // Here we use a dynamically load the app
-  // we don't want to import it because we want
-  // to make sure process.env is populated before !
-  const { main } = await import("./app.js");
-  await main();
-} catch (error) {
-  console.error(error);
-  process.exit();
-}
+import("./app.js")
+  .then(({ main }) => main())
+  .then((app) => {
+    app.listen(3001, () => {
+      console.log(colorette.blue(`Server is up on http://localhost:3001`));
+    });
+  })
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });

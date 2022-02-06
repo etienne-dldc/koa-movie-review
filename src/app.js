@@ -1,11 +1,13 @@
 import helmet from "koa-helmet";
-import chalk from "chalk";
 import Koa from "koa";
 import errorHandler from "koa-error";
 import bodyparser from "koa-bodyparser";
 import cors from "@koa/cors";
 import { setupDatabase } from "./database/setup.js";
 import { router } from "./routes/index.js";
+import { knex } from "./database/connection.js";
+
+export { knex };
 
 export async function main() {
   // setup database before starting the app !
@@ -20,10 +22,6 @@ export async function main() {
 
   app.use(router.routes());
   app.use(router.allowedMethods());
-
-  app.listen(3001, () => {
-    console.log(chalk.blue(`Server is up on http://localhost:3001`));
-  });
 
   return app;
 }
