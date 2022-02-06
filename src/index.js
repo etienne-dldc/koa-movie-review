@@ -11,6 +11,6 @@ try {
   const { main } = await import("./app.js");
   await main();
 } catch (error) {
-  console.error(err);
+  console.error(error);
   process.exit();
 }

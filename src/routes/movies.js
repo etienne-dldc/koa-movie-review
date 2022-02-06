@@ -2,6 +2,7 @@ import * as z from "zod";
 import Router from "@koa/router";
 import { findAllMovies, findMovie, insertMovie, updateMovie } from "../database/index.js";
 import { zodBodyValidator } from "../middlewares/zodBodyValidator.js";
+import { authenticated } from "../middlewares/authenticated.js";
 import { allUndefined } from "../utils.js";
 
 export const moviesRouter = Router();
@@ -13,6 +14,7 @@ moviesRouter.get("/", async (ctx) => {
 
 moviesRouter.post(
   "/",
+  authenticated,
   zodBodyValidator(
     z.object({
       title: z.string().nonempty(),
@@ -29,6 +31,7 @@ moviesRouter.post(
 
 moviesRouter.put(
   "/:movie_id",
+  authenticated,
   zodBodyValidator(
     z.object({
       title: z.string().nonempty().optional(),
