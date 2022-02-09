@@ -17,7 +17,8 @@
   "scripts": {
     "dev": "nodemon --exec esr ./src/index.js",
     "start": "esr ./src/index.js",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@koa/cors": "^3.1.0",
@@ -41,6 +42,7 @@
     "zod": "^3.11.6"
   },
   "devDependencies": {
+    "@types/jest": "^27.4.0",
     "nodemon": "^2.0.15"
   }
 }

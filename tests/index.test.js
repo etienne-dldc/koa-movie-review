@@ -29,4 +29,9 @@ describe("API", () => {
     const res = await request.get("/movies").expect(200);
     expect(res.body).toHaveLength(2);
   });
+
+  test("root page shoudl return hello", async () => {
+    const res = await request.get("/").expect(200);
+    expect(res.body).toEqual({ you: "<- are here !" });
+  });
 });
